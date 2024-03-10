@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Login</title>
+    <title>Sign Up</title>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="assests/signUp.css">
@@ -25,10 +25,12 @@
       crossorigin="anonymous"
     ></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+        <script type="text/javascript" src="../jquery.passwordstrength.js"></script>
   </head>
   <body>
     <div
-      class="hero border border-light rounded-1 shadow-sm m-auto p-4 mt-3"
+      class="hero border border-light rounded-1 shadow-sm m-auto p-4 mt-2"
     >
       <form id="myform" action="" method="get" accept-charset="UTF-8">
         <div class="d-flex justify-content-between mb-3">
@@ -55,12 +57,19 @@
           <input type="email" class="form-control" placeholder="demo@company.com" />
         </div>
         <div class="mb-3 position-relative">
-          <label class="mb-2">Password</label>
-          <input type="password" class=" position-relative form-control " placeholder="abcde" id="myPassword" oninput="strengthChecker()" value=""/>
-          <a href="#" id="icon-click" class="position-absolute end-0 top-50 me-3 mt-1">
-              <i class="fa-solid fa-eye-slash" id="icon"></i>
-          </a>
-      </div>
+          <div class="pass">
+            <label class="mb-2">Password</label>
+            <input type="password" class=" position-relative form-control mb-0" placeholder="abcde" id="myPassword" value=""/>
+            <a href="#" id="icon-click" class="position-relative eye me-3 mt-1">
+                <i class="fa-solid fa-eye-slash" id="icon"></i>
+            </a>
+          </div>
+          <div id="message" class="d-none mt-0" style="font-size: 14px;">Password is <span id="strength"></span></div>
+          <div id="criteria" class="d-none mt-1"><span id="criteriaMsg" class="text-danger"></span></div>
+        </div>
+        <div>
+
+        </div>
         <p class="small">
           By Signing up, you agree to our
           <span class="text-primary">Terms of Service</span> and
@@ -91,11 +100,12 @@
         </div>
       </form>
     </div>
-    <script type="text/javascript">
+    <!-- <script type="text/javascript">
       let eyeIcon=document.getElementById("icon");
       let password=document.getElementById("myPassword");
       eyeIcon.onclick=function(){
-        if(password.type=="password"){
+        if(password.type=="password")
+        {
           password.type="text";
           eyeIcon.classList.remove("fa-eye-slash");
           eyeIcon.classList.add("fa-eye");
@@ -106,6 +116,113 @@
         }
       }
      
-    </script>
+      var msg=document.getElementById("message");
+      var str=document.getElementById("strength");
+      var hasUpperCase=/[A-Z]/.test(passwordvalue);
+      var hasLowerCase=/[a-z]/.test(password.value);
+      var hasNumber=/\d+/.test(password.value);
+      var hasSpecialChar = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(password.value);
+      
+      password.addEventListener('input', () => {
+        if (password.value.length > 0) {
+          msg.classList.remove("d-none");
+        } else {
+          msg.classList.add("d-none");
+        }
+        if (password.value.length < 4) {
+          str.innerHTML = "weak";
+        } else if (password.value.length >= 4 && password.value.length < 8 && hasUpperCase && hasLowerCase && hasNumber) {
+          str.innerHTML = "medium";
+        } else if (password.value.length >= 8 && hasLowerCase && hasUpperCase && hasNumber && hasSpecialChar) {
+          str.innerHTML = "strong";
+  }
+});
+    
+    </script> -->
+
+<script type="text/javascript">
+const eyeIcon = document.getElementById("icon");
+const password = document.getElementById("myPassword");
+const msg = document.getElementById("message");
+const str = document.getElementById("strength");
+const crit=document.getElementById("criteria")
+const critMsg=document.getElementById("criteriaMsg");
+eyeIcon.onclick = function () {
+    password.type = (password.type === "password") ? "text" : "password";
+    eyeIcon.classList.toggle("fa-eye-slash");
+    eyeIcon.classList.toggle("fa-eye");
+
+};
+
+ const checkPasswordStrength = () => {
+    const passwordValue = password.value;
+    const passwordLength = passwordValue.length;
+
+    const hasUpperCase = /[A-Z]/.test(passwordValue);
+    const hasLowerCase = /[a-z]/.test(passwordValue);
+    const hasNumber = /\d/.test(passwordValue);
+    const hasSpecialChar = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(passwordValue);
+
+    if (passwordLength === 0) {
+        msg.classList.add("d-none");
+        crit.classList.add("d-none");
+        return;
+    }
+
+    msg.classList.remove("d-none");
+    crit.classList.remove("d-none");
+    if (passwordLength < 4) {
+        str.innerHTML = "weak";
+        critMsg.innerHTML="password must have more than 4 characters";
+
+    } else if (passwordLength >= 4 && passwordLength < 8 && hasUpperCase && hasLowerCase && hasNumber) {
+        str.innerHTML = "medium";
+    } else if (passwordLength >= 8 && hasLowerCase && hasUpperCase && hasNumber && hasSpecialChar) {
+        str.innerHTML = " strong";
+        crit.classList.add("d-none");
+    }
+    else if(!hasUpperCase && hasLowerCase && hasNumber && hasSpecialChar){
+      critMsg.innerHTML="Password must have atleast one Upper case";
+    
+    }else if(!hasNumber && hasLowerCase && hasUpperCase && hasSpecialChar){
+      critMsg.innerHTML="Password must have atleast one Number";
+    
+    }else if(!hasLowerCase && hasUpperCase && hasNumber && hasSpecialChar){
+      critMsg.innerHTML="Password must have atleast one lower case";
+    
+     }
+    else if(hasLowerCase && hasNumber && !hasSpecialChar && !hasUpperCase){
+      critMsg.innerHTML="Password must have atleast one upercase and special character";
+    
+    }else if(hasLowerCase && hasUpperCase && !hasSpecialChar && !hasNumber){
+      critMsg.innerHTML="Password must have atleast one number and special character";
+    
+    }else if(hasLowerCase && hasSpecialChar && !hasNumber && !hasUpperCase){
+      critMsg.innerHTML="Password must have atleast one number and uppercase";
+    
+    }else if(hasUpperCase && hasNumber && !hasSpecialChar && !hasLowerCase){
+      critMsg.innerHTML="Password must have atleast one Lowercase and special character";
+    
+    }else if(hasUpperCase && hasSpecialChar && !hasLowerCase && !hasNumber){
+      critMsg.innerHTML="Password must have atleast one Lowercase and Number";
+    }
+    else if(hasSpecialChar && hasNumber && !hasLowerCase && !hasUpperCase){
+      critMsg.innerHTML="Password must have atleast one Lowercase and uppercase";
+    }
+    else if(hasLowerCase && !hasNumber && !hasSpecialChar && !hasUpperCase){
+      critMsg.innerHTML="Password must have atlease one uppercase, number and special characters";
+    }
+    else if(hasUpperCase && !hasLowerCase && !hasNumber && !hasSpecialChar){
+      critMsg.innerHTML="Password must have atlease one lowercase, number and special characters";
+    }
+    else if(hasNumber && !hasLowerCase && !hasUpperCase && !hasSpecialChar){
+      critMsg.innerHTML="Password must have atlease one uppercase, lowercase and special characters";
+    }
+    else if(hasSpecialChar && !hasLowerCase && !hasNumber && !hasUpperCase){
+      critMsg.innerHTML="Password must have atlease one uppercase, lowercase and Number";
+    }
+};
+password.addEventListener('input', checkPasswordStrength);
+</script>
   </body>
 </html>

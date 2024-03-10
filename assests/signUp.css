@@ -1,9 +1,19 @@
 .hero{
-    width: fit-content;
+    width: 480px;
 }
 .strengthBar{
     background-color: #ededed;
     height: 10px;
     border-radius: 10px;
     
+}
+.eye{
+    bottom: 30px;
+    left: 395px;
+}
+.pass{
+    height: 78px;
+}
+span{
+    font-size: 14px;
 }
