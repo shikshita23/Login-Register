@@ -29,38 +29,39 @@
         <script type="text/javascript" src="../jquery.passwordstrength.js"></script>
   </head>
   <body>
+ 
     <div
       class="hero border border-light rounded-1 shadow-sm m-auto p-4 mt-2"
     >
-      <form id="myform" action="" method="get" accept-charset="UTF-8">
+      <form id="myform" action="http://localhost:3002/create-info" method="POST" >
         <div class="d-flex justify-content-between mb-3">
           <div class="fw-bold fs-4">Sign Up</div>
           <div class="text-primary">Already have an account?</div>
         </div>
         <div class="row mb-3">
           <div class="col-md-6">
-            <label class="mb-2">First Name*</label>
-            <input type="text" class="form-control" placeholder="John" />
+            <label for="FirstName" class="mb-2">First Name*</label>
+            <input  type="text" name="FirstName" id="FirstName" class="form-control" placeholder="John" />
           </div>
           <div class="col-md-6">
-            <label class="mb-2">Last Name*</label>
-            <input type="text" class="form-control"  placeholder="Doe" />
+            <label for="LastName" class="mb-2">Last Name*</label>
+            <input  type="text" name="LastName" class="form-control"  placeholder="Doe" />
           </div>
         </div>
 
         <div class="d-flex flex-column mb-3">
-          <label class="mb-2">Company</label>
-          <input type="text" class="form-control" placeholder="Demo Inc." />
+          <label class="mb-2" for="Company">Company</label>
+          <input type="text" name="Company" class="form-control" placeholder="Demo Inc." />
         </div>
         <div class="d-flex flex-column mb-3">
-          <label class="mb-2">Email Address</label>
-          <input type="email" class="form-control" placeholder="demo@company.com" />
+          <label class="mb-2" for="Email">Email Address</label>
+          <input type="email" name="Email" class="form-control" placeholder="demo@company.com" />
         </div>
         
         <div class="mb-3 position-relative">
           <div class="pass">
-            <label class="mb-2">Password</label>
-            <input type="password" class=" position-relative form-control mb-0" placeholder="abcde" id="myPassword" value=""/>
+            <label class="mb-2" for="Password">Password</label>
+            <input type="password"  name="Password" class=" position-relative form-control mb-0" placeholder="abcde" id="myPassword" value=""/>
             <a href="#" id="icon-click" class="position-relative eye me-3 mt-1">
                 <i class="fa-solid fa-eye-slash" id="icon"></i>
             </a>
@@ -81,9 +82,9 @@
           <span class="text-primary">Terms of Service</span> and
           <span class="text-priamry">Privacy Policy</span>
         </p>
-        <button class="w-100 bg-primary text-white btn btn-primary mt-3 mb-3">
-          Create Account
-        </button>
+        <input type="submit" value="Create Account" class="w-100 bg-primary text-white btn btn-primary mt-3 mb-3">
+          
+        </input>
 
         <div class="d-flex justify-content-center align-items-center mb-4">
           <div class="border-bottom border border-secondary w-50 me-1"></div>
@@ -200,6 +201,7 @@ eyeIcon.onclick = function () {
     }
 };
 password.addEventListener('input', checkPasswordStrength);
+
 </script>
   </body>
 </html>
