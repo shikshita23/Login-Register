@@ -15,12 +15,12 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors()); // enable CORS
 
 //Define port
-const port = process.env.PORT || 3002;
+const port = 3002;
 
 async function main() {
     try {
         // establish a connection to the MongoDb database using Mongoosew
-        await mongoose.connect('mongodb://localhost:27017/todo-app');
+        await mongoose.connect('mongodb://localhost:27017/userDB');
         console.log("Connected to MongoDB successfullyyyy");
     } catch (err) {
         console.error("Error connecting to MongoDB", err);
@@ -29,7 +29,7 @@ async function main() {
 
 main();
 app.use('/user', userRoutes);
-app.use('/todo', userRoutes);
+// app.use('/todo', userRoutes);
 
 //req listen garney
 app.listen(port, () => { console.log(`Example app listening on port ${port}`); })
