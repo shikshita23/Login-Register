@@ -2,8 +2,12 @@ const User = require('../models/user-models');
 const bcrypt = require('bcrypt');
 
 const createUser = async (req, res) => {
+    
     try {
+        console.log(req.body);
         const { password, firstname, lastname, email, company } = req.body;
+
+
         // Hash password
         const salt = await bcrypt.genSalt(10);
 
@@ -23,5 +27,6 @@ const createUser = async (req, res) => {
         res.status(500).send("Error while creating user");
     }
 };
+
 
 module.exports = { createUser };
