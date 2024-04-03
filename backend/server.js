@@ -11,7 +11,7 @@ const app = express();
 
 // Configure express app
 app.use(express.json()); // for parsing application/json
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({extended:true}));
 app.use(cors()); // enable CORS
 
 //Define port

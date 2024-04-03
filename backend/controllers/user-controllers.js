@@ -5,7 +5,7 @@ const createUser = async (req, res) => {
     
     try {
         console.log(req.body);
-        const { password, firstname, lastname, email, company } = req.body;
+        const { firstname, lastname, company,email , password} = req.body;
 
 
         // Hash password
@@ -14,8 +14,8 @@ const createUser = async (req, res) => {
         const hashedPassword = await bcrypt.hash(password, salt);
 
         const user = new User({
-            firstName: firstname,
-            lastName: lastname,
+            firstname: firstname,
+            lastname: lastname,
             company: company,
             email: email,
             password: hashedPassword
