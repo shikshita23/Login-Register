@@ -21,9 +21,16 @@ const createUser = async (req, res) => {
             password: hashedPassword
         });
         
-        await user.save();
+        // await user.save();
+        // const Result = await user.save();
+        // console.log("resultt ==>",Result);
+        console.log("user ==>",user);
+        const data= await user.save();
+        console.log("data==>",data);
+
         res.status(201).send("User created succesfully");
     } catch (err) {
+        console.log(err);
         res.status(500).send("Error while creating user");
     }
 };
